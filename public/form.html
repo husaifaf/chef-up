@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chef Up: Web Skill Logger</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #FFF5E4;
+      color: #3D2C1C;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+    h1 {
+      font-family: cursive;
+      color: #536001;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      background: #FCD6AE;
+      border: 1px solid #FFB337;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #FF7C71;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #log {
+      margin-top: 30px;
+    }
+    .log-entry {
+      background: #fff;
+      border-left: 5px solid #536001;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍳 Log a Cooking Skill</h1>
+
+  <form id="skillForm">
+    <label for="name">Skill Name</label>
+    <input type="text" id="name" required />
+
+    <label for="notes">Notes</label>
+    <textarea id="notes" rows="4"></textarea>
+
+    <label for="minutes">Time Practiced (minutes)</label>
+    <input type="number" id="minutes" min="1" required />
+
+    <button type="submit">Save Skill</button>
+  </form>
+
+  <div id="log"></div>
+
+  <script>
+    const form = document.getElementById('skillForm');
+    const logContainer = document.getElementById('log');
+
+    function loadSkills() {
+      const saved = JSON.parse(localStorage.getItem('webSkills') || '[]');
+      logContainer.innerHTML = saved.map(s =>
+        `<div class="log-entry">
+          <strong>${s.name}</strong> – ${s.minutes} min<br/>
+          <em>${s.notes}</em><br/>
+          <small>${s.date}</small>
+        </div>`
+      ).join('');
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const skill = {
+        name: document.getElementById('name').value.trim(),
+        notes: document.getElementById('notes').value.trim(),
+        minutes: parseInt(document.getElementById('minutes').value),
+        date: new Date().toLocaleString()
+      };
+
+      const saved = JSON.parse(localStorage.getItem('webSkills') || '[]');
+      saved.unshift(skill);
+      localStorage.setItem('webSkills', JSON.stringify(saved));
+      form.reset();
+      loadSkills();
+    });
+
+    loadSkills();
+  </script>
+</body>
+</html>

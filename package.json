@@ -1,7 +1,7 @@
 {
   "name": "chef-up",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,10 +9,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/lobster": "^0.4.0",
+    "@expo-google-fonts/poppins": "^0.4.0",
+    "@expo-google-fonts/pt-serif": "^0.4.0",
+    "@react-native-async-storage/async-storage": "2.1.2",
     "expo": "~53.0.15",
+    "expo-app-loading": "^2.1.1",
+    "expo-font": "~13.3.2",
+    "expo-image-picker": "~16.1.4",
+    "expo-router": "~5.1.2",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
-    "react-native": "0.79.4"
+    "react-dom": "19.0.0",
+    "react-native": "0.79.4",
+    "react-native-web": "^0.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
